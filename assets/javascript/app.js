@@ -15,9 +15,18 @@ var q9 = new Question("What is the primary goal of Fsociety? ", questionType.mul
 var theQuestions = [q1, q2,q3,q4, q5, q6, q7, q8, q9];
 var randomQuestion;
 var displayedQuestions = [];
+var mrRobot;
 
 $(document).ready(function(){
-    var mrRobot = setInterval(mrRobotQuestions,15000);
+    mrRobot = setInterval(mrRobotQuestions,15000);
+    
+   
+     $('#answerContainer').on("click","input", function(){
+         var value = $(this).data("value");
+         var index = $(this).data("index");
+         alert( value +": " +index);
+     } );
+    
 });
 
 function mrRobotQuestions(){
@@ -25,6 +34,10 @@ function mrRobotQuestions(){
     archiveQuestion(randomQuestion);
     clearPreviousQuestion();
     displayQuestion(randomQuestion);
+
+    if(displayedQuestions.length === theQuestions.length){
+        clearInterval(mrRobot);
+    }
 }
 
 function selectQuestion(){
@@ -49,7 +62,7 @@ function displayQuestion(theIndex){
 
   for(var i =0; i < theQuestions[theIndex].possibleAnswers.length; i++){
     var theLabel = '<label for="rb'+ i +'">'+ theQuestions[theIndex].possibleAnswers[i] + '</label>';
-    var theButtons = '<input type="radio" name="radio-'+ i +'" id="radio-'+ i + '" data-value="'+ i  +'">';
+    var theButtons = '<input type="radio" name="radio-'+ i +'" id="radio-'+ i + '"data-index="'+ theIndex + '"data-value="'+ i  +'">';
     $("#answerContainer").append(theLabel + theButtons);
   }
 }
