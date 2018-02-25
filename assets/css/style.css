@@ -31,7 +31,7 @@ h2{
 }
 
 #questionContainer{
-  margin-top: 35rem;
+  /*margin-top: 35rem; */
 }
 
 h3{
@@ -58,8 +58,18 @@ fieldset{
   width: 100%;
   font-size: 1.25rem;
   text-align: center;
+  border: 2px solid wheat;
 }
 
 label{
   margin: 0 .25rem 0 .25rem;
+}
+
+#questionResult{
+ color:white;
+}
+
+#gameResult{
+ color:white;
+ margin-top: 10rem
 }

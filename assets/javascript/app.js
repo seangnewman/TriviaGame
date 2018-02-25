@@ -22,10 +22,13 @@ $(document).ready(function(){
     
    
      $('#answerContainer').on("click","input", function(){
-         var value = $(this).data("value");
-         var index = $(this).data("index");
-         alert( value +": " +index);
-     } );
+       // stop the timer
+       clearInterval(mrRobot);
+       var value = $(this).data("value");
+       var index = $(this).data("index");
+       questionResult(index, value);
+       
+     });
     
 });
 
@@ -34,12 +37,10 @@ function mrRobotQuestions(){
     archiveQuestion(randomQuestion);
     clearPreviousQuestion();
     displayQuestion(randomQuestion);
-
     if(displayedQuestions.length === theQuestions.length){
         clearInterval(mrRobot);
     }
 }
-
 function selectQuestion(){
   // Select a randomQuestion
   var tempQuestion;
@@ -70,5 +71,17 @@ function displayQuestion(theIndex){
 function clearPreviousQuestion(){
     $('#theQuestion').text('');
     $("#answerContainer").empty();
+}
+
+function questionResult(arrrayIndex, theChoice){
+  if(theChoice === theQuestions[arrrayIndex].answerIndex){
+    //the correct answer was chosen
+     
+    $('#questionResult').html('<h2>Correct!</h2>');
+  }else{
+    // the incorrect choice was made
+     
+    $('#questionResult').html('<h2>InCorrect!</h2>');
+  }
 }
 
