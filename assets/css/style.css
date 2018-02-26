@@ -19,7 +19,8 @@ body{
 header{
   margin: 0 auto;
   width: 100%;
-  color:rgb(136, 22, 22);
+  color: rgb(136, 22, 22);
+  font-weight: bold;
 }
 
 h1{
@@ -66,8 +67,8 @@ label{
   margin: 0 .25rem 0 .25rem;
 }
 
-#questionResult{
-  color:white;
+#questionResult h2{
+  color : rgb(136, 22, 22);
 }
 
 #gameResult{
@@ -85,10 +86,11 @@ label{
 }
 
 .secondsDisplayWarning{
-  background-color: red;
+  background-color: rgb(136, 22, 22);
   color:wheat;
   font-weight: bold;
   padding: .25rem;
+  font-size:2rem;
 }
 
 #answerText{
@@ -105,12 +107,17 @@ label{
 #answerText h4{
   background-color:#F2F6F7;
   position: relative;
-  top: 65%;;
+  top: 50%;;
   color:#242932;
   opacity:.8;
   border-radius:25px;
- 
-  
-  
+}
+
+#playAgain{
+  font-size: 1.75rem;
+  background-color: rgb(136, 22, 22);
+  color:#F1F5F6;
+  border-radius: 25px;
+
 }
  
