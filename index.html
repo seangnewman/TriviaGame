@@ -3,31 +3,39 @@
   <head>
       <meta charset="UTF-8">
       <title>Week 5 - Trivia Game</title>
-
+      <!-- Remove browser specific stylings -->
       <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
+      <!-- support for jQueryUI radiobox elements -->
       <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <!-- support for bootstrap button  elements -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      
+      <!-- custom stylesheets -->
       <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-
   </head>
   <body lang="en">
-      <main>
-        <header>
-          <h1>Welcome to the Daily 5/9</h1>
-          <h2>A celebration of Mr. Robot</h2>
-        </header>
-        
-        <section id="gameResult" class="Results"></section>
-        <section id="questionResult" class="Results"></section>
-        <section id="questionContainer">
-          <h3 id="theQuestion"></h3>
-          <fieldset>
-            <div id="answerContainer">
+    <main>
+      <header>
+        <h1>Welcome to the Daily 5/9</h1>
+        <h2>Trivia from Mr. Robot</h2>
+      </header>
+      <section id="gameResult" class="Results"></section>
+        <section id="questionSection">
+          <div id="questionAnswer">
+             <div id="answerText"></div>
            </div>
-          </fieldset>
-        </section>  
-      </main>
+           <div id="questionResult" class="Results"></div>
+      </section>
+      <section id="questionContainer">
+        <h3 id="theQuestion"></h3>
+        <fieldset>
+          <div id="answerContainer"></div>
+        </fieldset>
+      </section>  
+    </main>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="./assets/javascript/object.js"></script>  
     <script src="./assets/javascript/app.js"></script>
   </body>

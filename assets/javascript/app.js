@@ -1,46 +1,85 @@
-
 //
 // Declare the questions for the game
 //
-var q1 = new Question("What is Elliot's pet fish named after? ", questionType.multipleChoice, 1, '',["Norse God of Mischief","The Latin Keyboard","Roman goddess of semiconductors"]);
-var q2 = new Question("What novel by Leo Tolstoy is being read by Mr. Robot? ", questionType.multipleChoice, 0, '',["Resurrection","What is Art?","A Confession", "Anna Karenina","War & Peace"]);
-var q3 = new Question("What two languages are featured on Mr. Robot? ", questionType.multipleChoice, 2, '',["JavaScript/PHP","C++/C?","Ruby/Python", "Swift/Go"]);
-var q4 = new Question("Whiterose is an anagram for otherwise? ", questionType.trueFalse, 0, '');
-var q5 = new Question("Mr. Robot is Elliot's Brother? ", questionType.trueFalse, 1, '');
-var q6 = new Question("Fsociety is a group of hackers created by Mr. Robot? ", questionType.trueFalse, 0, '');
-var q7 = new Question("ECorp is the company in which Fsociety is trying to take down? ", questionType.trueFalse, 0, '');
-var q8 = new Question("Elliot's job is a cyber security engineer? ", questionType.trueFalse, 0, '');
-var q9 = new Question("What is the primary goal of Fsociety? ", questionType.multipleChoice, 1, '',["world domination","cancel all debts","entertainment"]);
+
+var q1 = new Question("What is Elliot's pet fish named after? ", questionType.multipleChoice, 1,
+ './assets/images/qwerty.png','Qwerty is named after the latin keyboard, the first six letters on the keyboard are Q-W-E-R-T-Y', ["Norse God of Mischief","The Latin Keyboard","Roman goddess of semiconductors"]);
+
+var q2 = new Question("What novel by Leo Tolstoy is being read by Mr. Robot? ", questionType.multipleChoice, 0, 
+'./assets/images/tolstoy.jpg','Mr. Robot is frequently seen with the Resurrection novel. The novel advances the principle of Georgism. an attempt to integrate economics with social justice. ',["Resurrection","What is Art?","A Confession", "Anna Karenina","War & Peace"]);
+var q3 = new Question("What two languages are featured on Mr. Robot? ", questionType.multipleChoice, 2, 
+'./assets/images/python.jpg','Python is the featured language on Mr. Robot although Ruby was also seen in season 3.',["JavaScript/PHP","C++/C?","Ruby/Python", "Swift/Go"]);
+var q4 = new Question("Whiterose is an anagram for otherwise? ", questionType.trueFalse, 0, 
+'./assets/images/whiterose.jpg', 'The Chinese Minister of Security Zhi Zhang is OTHERWISE known as Whiterose, leader of the Dark Army');
+var q5 = new Question("Mr. Robot is Elliot's Brother? ", questionType.trueFalse, 1, 
+'./assets/images/mrRobot.jpg', "Mr. Robot is Edward Aldeson, the father of Elliot");
+var q6 = new Question("fSociety is a group of hackers created by Mr. Robot? ", questionType.trueFalse, 0, 
+'./assets/images/fSociety.jpg', "Mr. Robot recruited Elliot to join fSociety");
+var q7 = new Question("eCorp is the company in which fSociety is trying to take down? ", questionType.trueFalse, 0, 
+'./assets/images/ecorp.jpg',"The eCorp logo is similar in design to the old Dell logo as well as the Enron logo.  It is the target of fSociety");
+var q8 = new Question("Elliot's job is a cyber security engineer? ", questionType.trueFalse, 0, 
+'./assets/images/evilCorp.jpg',"Elliot was one of the most trusted engineers at AllSafe.  A cyber security firm.");
+var q9 = new Question("What is the primary goal of fSociety? ", questionType.multipleChoice, 1, 
+'./assets/images/atm.jpg',"Unfortunately for Elliot and Mr. Robot, the destruction of records as a result of 5/9 did not have the intended impact.",["world domination","cancel all debts","entertainment"]);
 
 var theQuestions = [q1, q2,q3,q4, q5, q6, q7, q8, q9];
 var randomQuestion;
 var displayedQuestions = [];
 var mrRobot;
+var questionInterval;
+var setTimeLimit = 15;
+var questionIntervalCount = 0;
+var robotWins = 0;
+var robotLosses = 0;
+var value;
+var index;
 
 $(document).ready(function(){
-    mrRobot = setInterval(mrRobotQuestions,15000);
-    
+
    
-     $('#answerContainer').on("click","input", function(){
-       // stop the timer
-       clearInterval(mrRobot);
-       var value = $(this).data("value");
-       var index = $(this).data("index");
-       questionResult(index, value);
-       
-     });
-    
+  mrRobot = setInterval(mrRobotQuestions,15000);
+  $('#answerContainer').on("click","input", function(){
+  // stop the timer
+
+     
+    value = $(this).data("value");
+    index = $(this).data("index");
+    questionResult(index, value);
+     
+   });
+     
 });
 
 function mrRobotQuestions(){
     randomQuestion = selectQuestion();
-    archiveQuestion(randomQuestion);
-    clearPreviousQuestion();
+    
+    clearPreviousGameQuestion();
     displayQuestion(randomQuestion);
-    if(displayedQuestions.length === theQuestions.length){
+    archiveQuestion(randomQuestion);
+    
+    if(displayedQuestions.length  === theQuestions.length + 1){
+        //Game is over ... stop timer
         clearInterval(mrRobot);
+        clearInterval(questionInterval); 
+        //Display results
+        clearPreviousGameQuestion();
+        displayGameResults();
     }
+    
 }
+
+function displayGameResults(){
+    alert("Display Game Results");
+  var solutionHTML = '<h4> You correctly answered '+ robotWins +' out of '+ theQuestions.length +' questions</h4>';  
+  solutionHTML += '<button type="button" class="btn btn-secondary">Play Again?</button>'
+  //$('#answerText').html('<h4> You correctly answered '+ robotWins +' out of '+ theQuestions.length +' questions</h4>');
+
+  $('#answerText').html(solutionHTML);
+  $('#answerText').css('background-image','url(./assets/images/RW4.jpg )');
+
+
+}
+
 function selectQuestion(){
   // Select a randomQuestion
   var tempQuestion;
@@ -56,32 +95,97 @@ function selectQuestion(){
 
 function archiveQuestion(currentIndex){
   displayedQuestions.push(currentIndex);
+   
 }
 
 function displayQuestion(theIndex){
+  //Need to clear results of previous question
+  
+  clearPreviousQuestion();
+  
+  //In the question result div, display the remaining seconds
+ 
   $('#theQuestion').text(theQuestions[theIndex].question);
-
   for(var i =0; i < theQuestions[theIndex].possibleAnswers.length; i++){
     var theLabel = '<label for="rb'+ i +'">'+ theQuestions[theIndex].possibleAnswers[i] + '</label>';
     var theButtons = '<input type="radio" name="radio-'+ i +'" id="radio-'+ i + '"data-index="'+ theIndex + '"data-value="'+ i  +'">';
-    $("#answerContainer").append(theLabel + theButtons);
+    $("#answerContainer").append(theButtons + theLabel);
+  }
+
+  
+  questionInterval = setInterval(displayRemainingTime, 1000);   
+}
+
+function displayRemainingTime(){
+   
+    questionIntervalCount++;
+  
+  
+  var remainingTime = setTimeLimit - questionIntervalCount;
+  if(remainingTime === 1){
+    
+     
+    $('#questionResult').html('<h3>InCorrect!</h3>');
+    expIndex = $('input').data("index");
+    expValue = $('input').data("value");
+    questionResult(expIndex, "expired"); 
+  }else{
+    if( remainingTime < 6) {
+      $('#questionResult').html('<h3 class="secondsDisplayWarning">' + remainingTime  + '</h3>');
+    }else{
+      $('#questionResult').html('<h3 class="secondsDisplay">' + remainingTime  + '</h3>');
+    }
   }
 }
 
 function clearPreviousQuestion(){
-    $('#theQuestion').text('');
-    $("#answerContainer").empty();
+  $('#theQuestion').text('');
+  $("#answerContainer").empty();
+  questionIntervalCount = 0;
 }
 
 function questionResult(arrrayIndex, theChoice){
-  if(theChoice === theQuestions[arrrayIndex].answerIndex){
-    //the correct answer was chosen
-     
-    $('#questionResult').html('<h2>Correct!</h2>');
-  }else{
+  //clearInterval(questionInterval); 
+  //clearInterval(mrRobot);
+  clearPreviousGameQuestion();
+
+  
+  $('#answerText').html('<h4>'+ theQuestions[arrrayIndex].answerText +'</h4>');
+   $('#answerText').css('background-image','url(' + theQuestions[arrrayIndex].imgPath + ')');
+
+  if(typeof theChoice === "number"){
+    if(theChoice === theQuestions[arrrayIndex].answerIndex){
+      //the correct answer was chosen
+       
+      $('#questionResult').html('<h2>Correct!</h2>');
+      robotWins++;
+    }else if (theChoice != theQuestions[arrrayIndex].answerIndex){
     // the incorrect choice was made
-     
     $('#questionResult').html('<h2>InCorrect!</h2>');
+    robotLosses++;
+  }else{
+    $('#questionResult').html('<h2>InCorrect!</h2>');
+    robotLosses++;
+  }
+  }else{
+    $('#questionResult').html('<h2>No Response!</h2>');
+    robotLosses++;
+  }
+   
+  if(displayedQuestions.length <= theQuestions.length){
+    mrRobot = setInterval(mrRobotQuestions, 15000); 
   }
 }
 
+function clearPreviousGameQuestion(){
+  clearInterval(questionInterval);
+  clearInterval(mrRobot);
+  questionIntervalCount = 0;
+  $('#questionResult').html('');
+  $('#gameResult').text(''); 
+  $('#answerText').html('');
+  $('#answerText').css("background-image","none");
+  $('#theQuestion').text('');
+  $("#answerContainer").empty();
+   
+}
