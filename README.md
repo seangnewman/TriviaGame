@@ -1,13 +1,13 @@
-# ** ** Mr. Robot Trivia Game
-## ** ** UABootcamp Week 5
+#  Mr. Robot Trivia Game
+##  UABootcamp Week 5
 ### JavaScript Assignment 2
 
-#### ** ** Overview
+#### Overview
 Using javascript and jQuery simulate a trivia game that displays a question to the user for a specified period of time.  If no response is received within the allotted period display the next question. 
 
 At the end of the game,  provide final score and present an option to replay the game.  If user chooses to reload game,  reset the game values ** ** without using a refresh.
 
-#### ** ** Data Object
+#### Data Object
 
 An enumerator will identify the type of question asked.  If the question is true/false, then a value of 1 will be used.  Multiple Choice values will be represented by a value of 0.
 
@@ -19,11 +19,11 @@ Each question is represented by a class with the following attributes.
 	Answer =   Text to display when revealing the answer
 	Image  =    Image that will be displayed as background to the answer.
 
-#### ** ** Functionality
+#### Functionality
 
 For this assignment,  jQuery will interact with the DOM.  Vanilla javascript primarily used for logic manipulation. There will, of course, be some overlap. 
 
-##### ** ** Psuedo Code
+##### Psuedo Code
 
 Display Introduction to Mr. Robot Trivia Game
 Repeat every 15 seconds
