@@ -66,22 +66,22 @@ function resetGlobals(){
  robotWins = 0;
  robotLosses = 0;
 }
+
 function mrRobotQuestions(){
-    randomQuestion = selectQuestion();
-    archiveQuestion(randomQuestion);
-    clearPreviousGameQuestion();
-    displayQuestion(randomQuestion);
+  randomQuestion = selectQuestion();
+  archiveQuestion(randomQuestion);
+  clearPreviousGameQuestion();
+  displayQuestion(randomQuestion);
    
     
-    if(displayedQuestions.length  === theQuestions.length + 1){
-        //Game is over ... stop timer
-        clearInterval(mrRobot);
-        clearInterval(questionInterval); 
-        //Display results
-        clearPreviousGameQuestion();
-        displayGameResults();
+  if(displayedQuestions.length  === theQuestions.length + 1){
+    //Game is over ... stop timer
+    clearInterval(mrRobot);
+    clearInterval(questionInterval); 
+    //Display results
+    clearPreviousGameQuestion();
+    displayGameResults();
     }
-    
 }
 
 function initialImages(){
@@ -159,7 +159,6 @@ function questionResult(arrrayIndex, theChoice){
   //clearInterval(questionInterval); 
   //clearInterval(mrRobot);
   clearPreviousGameQuestion();
-
   
   $('#answerText').html('<h4>'+ theQuestions[arrrayIndex].answerText +'</h4>');
    $('#answerText').css('background-image','url(' + theQuestions[arrrayIndex].imgPath + ')');
@@ -198,5 +197,4 @@ function clearPreviousGameQuestion(){
   $('#answerText').css("background-image","none");
   $('#theQuestion').text('');
   $("#answerContainer").empty();
-   
 }
